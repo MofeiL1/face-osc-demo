@@ -1,0 +1,11 @@
+name: face-osc-demo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - opencv
+  - matplotlib
+  - pip
+  - pip:
+    - mediapipe
+    - python-osc

@@ -1,0 +1,11 @@
+# Byte-compiled / caches
+__pycache__/
+*.py[cod]
+*~ 
+
+# Conda environment folder
+.env/
+*.env/
+  
+# VSCode settings
+.vscode/
