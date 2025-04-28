@@ -34,7 +34,7 @@ mp_face = mp.solutions.face_mesh.FaceMesh(
 )
 
 # Initialize camera with higher resolution
-cap = cv2.VideoCapture(1, cv2.CAP_AVFOUNDATION)
+cap = cv2.VideoCapture(args.device, cv2.CAP_AVFOUNDATION)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
