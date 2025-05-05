@@ -1,6 +1,6 @@
 # face-osc-demo
 
-Proof-of-concept: capture webcam, detect landmarks via MediaPipe, send OSC to Wekinator.
+Real-time facial expression tracking via webcam with MediaPipe and OSC output for interactive applications.
 
 ## Quickstart
 
@@ -17,12 +17,33 @@ python src/face_osc.py
    conda env create -f environment.yml
    ```
 
+## Features
+
+This application provides comprehensive facial expression tracking through 13 normalized metrics:
+
+1. **Mouth Open**: Vertical distance between lips
+2. **Mouth Width**: Horizontal mouth extension (smile detection)
+3. **Left Brow Raise**: Left eyebrow height relative to eye
+4. **Right Brow Raise**: Right eyebrow height relative to eye
+5. **Left Eye Open**: Left eye openness
+6. **Right Eye Open**: Right eye openness
+7. **Brow Contraction**: Inner eyebrows distance (concentration/frown)
+8. **Cheek Raise**: Cheek position (genuine smile indicator)
+9. **Mouth Corner**: Mouth corners vertical position (smile/frown)
+10. **Head Tilt**: Basic head rotation estimation
+11. **Left Corner H**: Left mouth corner horizontal position
+12. **Right Corner H**: Right mouth corner horizontal position
+13. **Mouth Asymmetry**: Difference between mouth corners (smirk detection)
+
+All measurements are normalized relative to face dimensions, making them robust against head movement and distance from camera.
+
 ## Usage
 
-The application captures your webcam feed, detects facial landmarks, and sends facial feature data via OSC:
-- A single message `/wek/inputs` containing raw, unprocessed landmark distances:
-  - Index 0: eyebrow raise (distance between eyebrow and eye points)
-  - Index 1: mouth openness (vertical distance between lip points)
+The application provides:
+- Real-time webcam feed with facial landmark overlay
+- On-screen metrics display showing all tracked values
+- Separate visualization window showing graphs of all metrics over time
+- OSC output for integration with applications like Wekinator, Max, or Processing
 
 ### Command line options
 
@@ -35,17 +56,20 @@ python src/face_osc.py --device 0
 ## OSC Output
 
 The application sends OSC messages to `127.0.0.1:6448` (default Wekinator port) with the following path:
-- `/wek/inputs`: A list containing [brow_raise, mouth_open] values as raw, unprocessed data
+- `/wek/inputs`: An array of 13 normalized facial feature values
 
-The values represent:
-- `brow_raise`: The raw distance between eyebrow and eye points (typically small values around 0.02-0.05)
-- `mouth_open`: The raw vertical distance between top and bottom lip landmarks (typically small values around 0.01-0.1)
-
-These values are sent as full precision 32-bit floats without any scaling, normalization, or clamping. This provides the rawest possible data directly from the facial landmark detection.
+These values are normalized relative to the face dimensions, making them consistent regardless of distance from camera or face size.
 
 ## Controls
 
 - Press `ESC` to quit the application
+
+## Visualization
+
+The application provides:
+- Facial mesh overlay on webcam feed
+- Real-time metrics display on webcam feed
+- Separate graph window showing all metrics over time
 
 ## Requirements
 
